@@ -11,6 +11,8 @@ import fieldReportRoutes from '../modules/fieldReports/fieldReports.routes.js';
 import budgetRoutes from '../modules/budgets/budgets.routes.js';
 import resourceRoutes from '../modules/resources/resources.routes.js';
 import { risksRouter, issuesRouter } from '../modules/risks/risks.routes.js';
+import notificationRoutes from '../modules/notifications/notifications.routes.js';
+import activityLogRoutes from '../modules/activityLogs/activityLogs.routes.js';
 import adminRoutes from '../modules/admin/admin.routes.js';
 
 const router = Router();
@@ -36,6 +38,8 @@ router.use('/budgets', budgetRoutes);
 router.use('/resources', resourceRoutes);
 router.use('/risks', risksRouter);
 router.use('/issues', issuesRouter);
+router.use('/notifications', notificationRoutes);
+router.use('/activity-logs', activityLogRoutes);
 router.use('/admin', adminRoutes);
 
 export default router;
