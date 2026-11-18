@@ -13,6 +13,7 @@ import resourceRoutes from '../modules/resources/resources.routes.js';
 import { risksRouter, issuesRouter } from '../modules/risks/risks.routes.js';
 import notificationRoutes from '../modules/notifications/notifications.routes.js';
 import activityLogRoutes from '../modules/activityLogs/activityLogs.routes.js';
+import analyticsRoutes from '../modules/analytics/analytics.routes.js';
 import adminRoutes from '../modules/admin/admin.routes.js';
 
 const router = Router();
@@ -40,6 +41,7 @@ router.use('/risks', risksRouter);
 router.use('/issues', issuesRouter);
 router.use('/notifications', notificationRoutes);
 router.use('/activity-logs', activityLogRoutes);
+router.use('/analytics', analyticsRoutes);
 router.use('/admin', adminRoutes);
 
 export default router;
