@@ -10,6 +10,7 @@ import milestoneRoutes from '../modules/milestones/milestones.routes.js';
 import fieldReportRoutes from '../modules/fieldReports/fieldReports.routes.js';
 import budgetRoutes from '../modules/budgets/budgets.routes.js';
 import resourceRoutes from '../modules/resources/resources.routes.js';
+import { risksRouter, issuesRouter } from '../modules/risks/risks.routes.js';
 import adminRoutes from '../modules/admin/admin.routes.js';
 
 const router = Router();
@@ -33,6 +34,8 @@ router.use('/milestones', milestoneRoutes);
 router.use('/field-reports', fieldReportRoutes);
 router.use('/budgets', budgetRoutes);
 router.use('/resources', resourceRoutes);
+router.use('/risks', risksRouter);
+router.use('/issues', issuesRouter);
 router.use('/admin', adminRoutes);
 
 export default router;
