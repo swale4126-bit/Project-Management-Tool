@@ -8,6 +8,8 @@ import projectRoutes from '../modules/projects/projects.routes.js';
 import taskRoutes from '../modules/tasks/tasks.routes.js';
 import milestoneRoutes from '../modules/milestones/milestones.routes.js';
 import fieldReportRoutes from '../modules/fieldReports/fieldReports.routes.js';
+import budgetRoutes from '../modules/budgets/budgets.routes.js';
+import resourceRoutes from '../modules/resources/resources.routes.js';
 import adminRoutes from '../modules/admin/admin.routes.js';
 
 const router = Router();
@@ -29,6 +31,8 @@ router.use('/projects', projectRoutes);
 router.use('/tasks', taskRoutes);
 router.use('/milestones', milestoneRoutes);
 router.use('/field-reports', fieldReportRoutes);
+router.use('/budgets', budgetRoutes);
+router.use('/resources', resourceRoutes);
 router.use('/admin', adminRoutes);
 
 export default router;
