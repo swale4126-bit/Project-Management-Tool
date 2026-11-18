@@ -7,6 +7,7 @@ import organizationRoutes from '../modules/organizations/organizations.routes.js
 import projectRoutes from '../modules/projects/projects.routes.js';
 import taskRoutes from '../modules/tasks/tasks.routes.js';
 import milestoneRoutes from '../modules/milestones/milestones.routes.js';
+import fieldReportRoutes from '../modules/fieldReports/fieldReports.routes.js';
 import adminRoutes from '../modules/admin/admin.routes.js';
 
 const router = Router();
@@ -27,6 +28,7 @@ router.use('/organizations', organizationRoutes);
 router.use('/projects', projectRoutes);
 router.use('/tasks', taskRoutes);
 router.use('/milestones', milestoneRoutes);
+router.use('/field-reports', fieldReportRoutes);
 router.use('/admin', adminRoutes);
 
 export default router;
