@@ -5,6 +5,8 @@ import { sendSuccess } from '../utils/apiResponse.js';
 import authRoutes from '../modules/auth/auth.routes.js';
 import organizationRoutes from '../modules/organizations/organizations.routes.js';
 import projectRoutes from '../modules/projects/projects.routes.js';
+import taskRoutes from '../modules/tasks/tasks.routes.js';
+import milestoneRoutes from '../modules/milestones/milestones.routes.js';
 import adminRoutes from '../modules/admin/admin.routes.js';
 
 const router = Router();
@@ -23,6 +25,8 @@ router.get('/health', async (_req, res) => {
 router.use('/auth', authRoutes);
 router.use('/organizations', organizationRoutes);
 router.use('/projects', projectRoutes);
+router.use('/tasks', taskRoutes);
+router.use('/milestones', milestoneRoutes);
 router.use('/admin', adminRoutes);
 
 export default router;
