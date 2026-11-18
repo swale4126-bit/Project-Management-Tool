@@ -1,101 +1,65 @@
-import { useQuery } from '@tanstack/react-query';
-import { Activity, CheckCircle2, Layers, ShieldCheck, AlertTriangle } from 'lucide-react';
-import { fetchApiHealth } from './api/client.js';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import AppShell from './layouts/AppShell.jsx';
+import { ProtectedRoute } from './layouts/ProtectedRoute.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import RegisterPage from './pages/RegisterPage.jsx';
+import OrgSetupPage from './pages/OrgSetupPage.jsx';
+import DashboardPage from './pages/DashboardPage.jsx';
+import ProjectsPage from './pages/ProjectsPage.jsx';
+import CreateProjectPage from './pages/CreateProjectPage.jsx';
+import ProjectDetailPage from './pages/ProjectDetailPage.jsx';
+import ProjectTeamPage from './pages/ProjectTeamPage.jsx';
+
+function ComingInPhase13B({ title }) {
+  return (
+    <div className="rounded-xl border border-slate-800 bg-[#111827] p-8 text-center">
+      <h2 className="text-lg font-semibold text-white">{title}</h2>
+      <p className="mt-1 text-sm text-slate-400">Scheduled for Phase 13B frontend integration.</p>
+    </div>
+  );
+}
 
 export default function App() {
-  const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['api-health'],
-    queryFn: fetchApiHealth,
-  });
-
-  const apiConnected = data?.success === true;
-  const dbConnected = data?.data?.database?.connected === true;
-
   return (
-    <div className="min-h-screen bg-[#0B1120] text-slate-100 flex items-center justify-center p-6">
-      <div className="w-full max-w-3xl rounded-2xl border border-slate-800 bg-[#111827] p-8 shadow-2xl">
-        <div className="flex items-center justify-between gap-4 border-b border-slate-800 pb-6">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600/20 text-blue-400 ring-1 ring-blue-500/30">
-              <Layers className="h-6 w-6" />
-            </div>
-            <div>
-              <h1 className="text-xl font-semibold tracking-tight text-white">FieldLedger</h1>
-              <p className="text-sm text-slate-400">
-                Project Management &amp; Field Operations Platform
-              </p>
-            </div>
-          </div>
-          <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-300">
-            Phase 2 — Environment Ready
-          </span>
-        </div>
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-400">
-              <Activity className="h-4 w-4 text-blue-400" />
-              Backend API Status
-            </div>
-            <div className="mt-3 flex items-center gap-2">
-              {isLoading ? (
-                <span className="text-sm text-slate-400">Checking /api/v1/health...</span>
-              ) : apiConnected ? (
-                <>
-                  <CheckCircle2 className="h-5 w-5 text-emerald-400" />
-                  <span className="text-sm font-medium text-emerald-300">
-                    Connected ({data.data.environment})
-                  </span>
-                </>
-              ) : (
-                <>
-                  <AlertTriangle className="h-5 w-5 text-amber-400" />
-                  <span className="text-sm text-amber-300">
-                    {isError ? 'Backend offline (start server with npm run dev)' : 'Unavailable'}
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
+      <Route element={<ProtectedRoute requireOrg={false} />}>
+        <Route path="/setup-organization" element={<OrgSetupPage />} />
+      </Route>
 
-          <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-400">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
-              PostgreSQL Database
-            </div>
-            <div className="mt-3 flex items-center gap-2">
-              {isLoading ? (
-                <span className="text-sm text-slate-400">Inspecting connection...</span>
-              ) : dbConnected ? (
-                <>
-                  <CheckCircle2 className="h-5 w-5 text-emerald-400" />
-                  <span className="text-sm font-medium text-emerald-300">Connected</span>
-                </>
-              ) : (
-                <>
-                  <AlertTriangle className="h-5 w-5 text-amber-400" />
-                  <span className="text-sm text-slate-300">
-                    {apiConnected
-                      ? `Pending Phase 3 setup (${data?.data?.database?.reason || 'not configured'})`
-                      : 'Waiting for API server'}
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+      <Route element={<ProtectedRoute requireOrg={true} />}>
+        <Route element={<AppShell />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/new" element={<CreateProjectPage />} />
+          <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
+          <Route path="/projects/:projectId/team" element={<ProjectTeamPage />} />
+          <Route
+            path="/projects/:projectId/timeline"
+            element={<ComingInPhase13B title="Milestones & Gantt Timeline" />}
+          />
+          <Route path="/tasks" element={<ComingInPhase13B title="Task Board & List" />} />
+          <Route path="/tasks/:taskId" element={<ComingInPhase13B title="Task Details" />} />
+          <Route path="/calendar" element={<ComingInPhase13B title="Calendar" />} />
+          <Route path="/field-reports" element={<ComingInPhase13B title="Field Activity Reports" />} />
+          <Route path="/budgets" element={<ComingInPhase13B title="Budget & Expenses" />} />
+          <Route path="/resources" element={<ComingInPhase13B title="Resources" />} />
+          <Route path="/risks" element={<ComingInPhase13B title="Risks & Issues" />} />
+          <Route path="/notifications" element={<ComingInPhase13B title="Notifications" />} />
+          <Route path="/analytics" element={<ComingInPhase13B title="Analytics & CSV Export" />} />
+          <Route
+            path="/settings/organization"
+            element={<ComingInPhase13B title="Organization Settings" />}
+          />
+          <Route path="/team" element={<ComingInPhase13B title="Organization Team" />} />
+          <Route path="/profile" element={<ComingInPhase13B title="User Profile" />} />
+        </Route>
+      </Route>
 
-        <div className="mt-6 flex items-center justify-between border-t border-slate-800 pt-5 text-xs text-slate-400">
-          <span>React + Vite + Tailwind CSS + TanStack Query + Express + PostgreSQL</span>
-          <button
-            type="button"
-            onClick={() => refetch()}
-            className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 font-medium text-slate-200 transition hover:bg-slate-700"
-          >
-            Re-check Health
-          </button>
-        </div>
-      </div>
-    </div>
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+    </Routes>
   );
 }
