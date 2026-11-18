@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment variables (NEVER commit real secrets)
+.env
+.env.local
+.env.*.local
+server/.env
+client/.env
+
+# Build outputs
+dist/
+client/dist/
+build/
+coverage/
+
+# Uploaded runtime files (keep directory structure only)
+server/uploads/*
+!server/uploads/.gitkeep
+
+# Logs & OS files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
