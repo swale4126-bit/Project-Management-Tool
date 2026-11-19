@@ -6,7 +6,6 @@ import { useAuth } from '../context/AuthContext.jsx';
 import {
   Button,
   Card,
-  ErrorBanner,
   LoadingSkeleton,
   PageHeader,
   inputClass,
@@ -52,7 +51,7 @@ export default function ProfilePage() {
 
   const updateProfileMutation = useMutation({
     mutationFn: (payload) => authApi.updateProfile(payload),
-    onSuccess: (res) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auth-me'] });
       setProfileSuccess('Profile updated successfully.');
       setTimeout(() => setProfileSuccess(''), 4000);

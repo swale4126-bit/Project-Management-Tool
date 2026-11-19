@@ -16,8 +16,11 @@ import {
 } from '../components/ui/Primitives.jsx';
 import { formatDate } from '../utils/format.js';
 
+const getTodayDate = () => new Date();
+const getTodayIso = () => new Date().toISOString().slice(0, 10);
+
 export default function CalendarPage() {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(getTodayDate);
   const [selectedProject, setSelectedProject] = useState('');
   const [selectedDayEvents, setSelectedDayEvents] = useState(null);
 
@@ -45,8 +48,8 @@ export default function CalendarPage() {
   });
 
   const projects = projectsData?.data?.items || [];
-  const tasks = tasksData?.data?.items || [];
-  const milestones = milestonesData?.data?.items || [];
+  const tasks = useMemo(() => tasksData?.data?.items || [], [tasksData?.data?.items]);
+  const milestones = useMemo(() => milestonesData?.data?.items || [], [milestonesData?.data?.items]);
 
   // Month navigation
   const year = currentDate.getFullYear();
@@ -94,7 +97,7 @@ export default function CalendarPage() {
     return map;
   }, [tasks, milestones]);
 
-  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayStr = getTodayIso();
 
   return (
     <div className="space-y-6">

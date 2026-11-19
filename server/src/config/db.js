@@ -9,9 +9,9 @@ const connectionString =
 export const pool = connectionString
   ? new Pool({
       connectionString,
-      max: 20,
+      max: 30,
       idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 5000,
+      connectionTimeoutMillis: 20000,
     })
   : null;
 

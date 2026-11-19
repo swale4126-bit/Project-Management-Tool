@@ -48,7 +48,7 @@ export default function NotificationsPage() {
 
   const checkDeadlinesMutation = useMutation({
     mutationFn: () => notificationsApi.checkDeadlines(),
-    onSuccess: (res) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notifications'] });
     },
   });

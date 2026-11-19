@@ -35,6 +35,8 @@ const CATEGORIES = [
   'other',
 ];
 
+const getTodayIso = () => new Date().toISOString().slice(0, 10);
+
 export default function BudgetsPage() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
@@ -60,7 +62,7 @@ export default function BudgetsPage() {
     title: '',
     category: 'materials',
     amount: '',
-    expenseDate: new Date().toISOString().slice(0, 10),
+    expenseDate: getTodayIso(),
     vendorName: '',
     description: '',
   });
@@ -101,7 +103,7 @@ export default function BudgetsPage() {
         title: '',
         category: 'materials',
         amount: '',
-        expenseDate: new Date().toISOString().slice(0, 10),
+        expenseDate: getTodayIso(),
         vendorName: '',
         description: '',
       });

@@ -23,7 +23,9 @@ import {
   inputClass,
   labelClass,
 } from '../components/ui/Primitives.jsx';
-import { formatDate, formatDateTime } from '../utils/format.js';
+import { formatDate } from '../utils/format.js';
+
+const getTodayIso = () => new Date().toISOString().slice(0, 10);
 
 const STATUS_TABS = [
   { key: '', label: 'All Reports' },
@@ -52,7 +54,7 @@ export default function FieldReportsPage() {
   const [newReport, setNewReport] = useState({
     projectId: '',
     title: '',
-    activityDate: new Date().toISOString().slice(0, 10),
+    activityDate: getTodayIso(),
     locationName: '',
     workCompleted: '',
     challengesBlockers: '',
@@ -86,7 +88,7 @@ export default function FieldReportsPage() {
       setNewReport({
         projectId: '',
         title: '',
-        activityDate: new Date().toISOString().slice(0, 10),
+        activityDate: getTodayIso(),
         locationName: '',
         workCompleted: '',
         challengesBlockers: '',
